@@ -1,6 +1,6 @@
 <template>
   <div class="main__wrapper">
-    <div class="flex flex-col">
+    <div class="flex flex-col py-4">
       <div class="header flex flex-row justify-between p-6">
         <div class="flex flex-row gap-6">
           <span>Check semantic</span>
@@ -15,11 +15,11 @@
           </span>
           </div>
         </div>
-        <span class="cursor-pointer">
+        <span @click="handleLogout" class="cursor-pointer">
           Exit
         </span>
       </div>
-      <div class="main-content">
+      <div class="main-content flex flex-col">
         <component :is="selectedComponent" />
       </div>
     </div>
@@ -30,8 +30,9 @@
 import ByFile from '../components/ByFile.vue'
 import ByDirectInput from '../components/ByDirectInput.vue'
 import { reactive, ref } from "vue";
+import {useAuthStore} from "../store/auth/useAuthStore.ts";
 
-const selectedComponent = ref<any>(ByFile)
+const selectedComponent = ref<unknown>(ByFile)
 
 const types = reactive([
   {
@@ -45,6 +46,12 @@ const types = reactive([
     component: ByDirectInput
   }
 ])
+
+const { logout } = useAuthStore()
+
+const handleLogout = () => {
+  logout()
+}
 
 const switchComponent = (component: any) => {
   selectedComponent.value = component
@@ -68,8 +75,8 @@ const switchComponent = (component: any) => {
 
 .main-content {
   background: #D9D9D9;
+  min-height: 80vh;
   padding: 3rem;
   border-radius: 0 0 40px 40px;
-  mix-blend-mode: multiply;
 }
 </style>

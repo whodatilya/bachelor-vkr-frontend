@@ -9,8 +9,19 @@ body {
   align-items: center;
   width: 100vw;
   max-width: 100vw;
-  height: 100vh;
-  max-height: 100vh;
+  min-height: 100vh;
   display: flex;
   background: linear-gradient(#E2FFE3, #FFEFEF);
+}
+
+.fs-12 {
+  font-size: 12px;
+}
+
+.fs-20 {
+  font-size: 20px;
+}
+
+.fs-32 {
+  font-size: 32px;
 }

@@ -1,13 +1,13 @@
 import Login from '../pages/Login.vue'
 import Register from '../pages/Register.vue'
 import Index from '../pages/Index.vue'
-// const ifAuthenticated = (to, from, next) => {
-//     if (localStorage.getItem('token')) {
-//         next()
-//         return
-//     }
-//     next('/login')
-// }
+const ifAuthenticated = (to, from, next) => {
+    if (localStorage.getItem('token')) {
+        next()
+        return
+    }
+    next('/signIn')
+}
 const routes = [
     {
         path: '/signIn',
@@ -22,12 +22,8 @@ const routes = [
     {
         path: '/',
         name: 'index',
-        component: Index
-    },
-    // {
-    //     path: '/signUp',
-    //     name: 'register',
-    //     component: () => import('@/pages/Register.vue')
-    // }
+        component: Index,
+        beforeEnter: ifAuthenticated
+    }
 ]
 export default routes

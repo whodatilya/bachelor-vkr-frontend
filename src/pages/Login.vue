@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col login__wrapper">
     <div class="flex flex-col p-16 gap-6">
-      <div class="flex flex-row justify-center header-font">Sign Up</div>
+      <div class="flex flex-row justify-center header-font">Sign In</div>
       <div class="flex flex-col gap-6">
         <span class="label-font">Login</span>
         <input v-model="login" class="input" type="text">
@@ -20,13 +20,23 @@
 <script setup lang="ts">
 import {useRouter} from "vue-router";
 import {ref} from "vue";
+import {useAuthStore} from "../store/auth/useAuthStore.ts";
+import {AuthUserData} from "../types";
+
+const { loginUser } = useAuthStore()
 
 const router = useRouter()
 
 const login = ref<string>('')
 const password = ref<string>('')
 
-const onClickSubmit = () => {
+const onClickSubmit = async () => {
+  const userData: AuthUserData = {
+    username: login.value,
+    password: password.value
+  }
+  const response = await loginUser(userData)
+  console.log('response', response)
   //Todo: Подключить бэк
   router.push({ name: 'index' })
 }

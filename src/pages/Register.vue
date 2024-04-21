@@ -8,11 +8,11 @@
       </div>
       <div class="flex flex-col gap-6">
         <span class="label-font">Password</span>
-        <input v-model="password" class="input" type="text">
+        <input v-model="password" class="input" type="password">
       </div>
       <div class="flex flex-col gap-6">
         <span class="label-font">Repeat password</span>
-        <input v-model="repassword" class="input" type="text">
+        <input v-model="repassword" class="input" type="password">
       </div>
       <div class="flex flex-row justify-center">
         <button @click="onClickSubmit" class="button">Submit</button>
@@ -25,13 +25,25 @@
 import {useRouter} from "vue-router";
 import {ref} from "vue";
 
+import {useAuthStore} from "../store/auth/useAuthStore.ts";
+import {RegisterUserData} from "../types";
+
+const { registerUser } = useAuthStore()
+
 const router = useRouter()
 
 const login = ref<string>('')
 const password = ref<string>('')
 const repassword = ref<string>('')
 
-const onClickSubmit = () => {
+const onClickSubmit = async () => {
+  const userData: RegisterUserData = {
+    email: login.value,
+    password: password.value,
+    password_confirmation: repassword.value
+  }
+  const response = await registerUser(userData)
+  console.log('response', response)
   //Todo: Подключить бэк
   router.push({ name: 'login' })
 }
