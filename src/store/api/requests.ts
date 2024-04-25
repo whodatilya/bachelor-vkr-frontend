@@ -6,7 +6,7 @@ const request = axios.create({
     baseURL: BASE_URL,
     timeout: 2 * 60 * 1000
 })
-function addAuthTokenHeader (config) {
+const addAuthTokenHeader = (config) => {
     const authToken = localStorage.getItem('token')
     if (authToken) {
         config.headers.Authorization = `Bearer ${authToken}`

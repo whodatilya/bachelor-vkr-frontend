@@ -22,11 +22,10 @@
 </template>
 
 <script setup lang="ts">
-import {useRouter} from "vue-router";
-import {ref} from "vue";
-
-import {useAuthStore} from "../store/auth/useAuthStore.ts";
-import {RegisterUserData} from "../types";
+import { useRouter } from "vue-router";
+import { ref } from "vue";
+import { useAuthStore } from "../store/auth/useAuthStore.ts";
+import { RegisterUserData } from "../types";
 
 const { registerUser } = useAuthStore()
 
@@ -42,10 +41,9 @@ const onClickSubmit = async () => {
     password: password.value,
     password_confirmation: repassword.value
   }
-  const response = await registerUser(userData)
-  console.log('response', response)
-  //Todo: Подключить бэк
-  router.push({ name: 'login' })
+  await registerUser(userData).then(() => {
+    router.push({ name: 'login' })
+  })
 }
 </script>
 

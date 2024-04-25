@@ -24,9 +24,9 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import { computed, ref } from "vue";
 import { ApiResponse } from "../types";
-import {useProcessHTMLStore} from "../store/process/useProcessHTMLStore.ts";
+import { useProcessHTMLStore } from "../store/process/useProcessHTMLStore.ts";
 
 const response = ref<ApiResponse | null>(null)
 
@@ -40,7 +40,6 @@ const { uploadByFile } = useProcessHTMLStore()
 
 const onClickSubmit = async () => {
   response.value = await uploadByFile(file.value)
-  console.log(response.value)
 }
 
 const score = computed(() => response.value ? `${response.value?.score * 100}%` : '')

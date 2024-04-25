@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { ApiResponse } from "../types";
-import {useProcessHTMLStore} from "../store/process/useProcessHTMLStore.ts";
+import { useProcessHTMLStore } from "../store/process/useProcessHTMLStore.ts";
 
 const response = ref<ApiResponse | null>(null)
 
@@ -36,10 +36,9 @@ const { uploadByDirectInput } = useProcessHTMLStore()
 
 const onClickSubmit = async () => {
   response.value = await uploadByDirectInput(markup.value)
-  console.log(response.value)
 }
 
-const score = computed(() => response.value ? `${response.value?.score * 100}%` : '')
+const score = computed(() => response.value ? `${(response.value?.score * 100).toFixed(2)}%` : '')
 
 const htmlContent = computed(() => response.value?.corrected_html)
 

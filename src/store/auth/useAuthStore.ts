@@ -1,9 +1,9 @@
-import {defineStore} from "pinia";
-import {AuthUserData, RegisterUserData} from "../../types";
+import { defineStore } from "pinia";
+import { AuthUserData, RegisterUserData } from "../../types";
 import request from "../api/requests.ts";
 
 export const useAuthStore = defineStore('authnetication', () => {
-    async function registerUser (userData: RegisterUserData) {
+    const registerUser =  async (userData: RegisterUserData) => {
         return request({
             url: '/users',
             headers: {
@@ -14,7 +14,7 @@ export const useAuthStore = defineStore('authnetication', () => {
         }).then(response => response.data)
     }
 
-    async function loginUser (userData: AuthUserData) {
+    const loginUser =  async (userData: AuthUserData) => {
         return request({
             url: '/auth/token',
             headers: {
@@ -38,7 +38,7 @@ export const useAuthStore = defineStore('authnetication', () => {
             })
     }
 
-    async function logout () {
+    const logout = async () => {
         localStorage.removeItem('token')
         location.reload()
     }

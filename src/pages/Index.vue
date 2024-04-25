@@ -30,7 +30,7 @@
 import ByFile from '../components/ByFile.vue'
 import ByDirectInput from '../components/ByDirectInput.vue'
 import { reactive, ref } from "vue";
-import {useAuthStore} from "../store/auth/useAuthStore.ts";
+import { useAuthStore } from "../store/auth/useAuthStore.ts";
 
 const selectedComponent = ref<unknown>(ByFile)
 
@@ -53,7 +53,7 @@ const handleLogout = () => {
   logout()
 }
 
-const switchComponent = (component: any) => {
+const switchComponent = (component: unknown) => {
   selectedComponent.value = component
 }
 </script>
