@@ -5,20 +5,30 @@
         <span class="fs-32 mb-1">Validate by File Upload</span>
         <hr>
         <span class="fs-12 mt-1 mb-4">Upload a document for validation:</span>
-        <span class="fs-20 mb-4">Choose file: <input type="file" @change="chooseFile"/></span>
+        <span class="fs-20 mb-4">Choose file: <input accept="text/html" type="file" @change="chooseFile"/></span>
         <button @click="onClickSubmit" class="button">Submit</button>
       </div>
     </div>
     <div class="check-form flex-1 flex flex-col gap-2">
       <span class="fs-32">Score: {{ score }}</span>
-      <span>Result:</span>
+      <span class="font-semibold">Result:</span>
       <textarea readonly class="textarea" name="layout" cols="30" rows="10" v-model="htmlContent"/>
-      <span>Errors:</span>
-      <div class="scroll-block max-h-full flex flex-col">
-        <template v-for="(error, index) in errors" :key="index">
-          <span>{{ index }} - {{ error }}</span>
-        </template>
-      </div>
+      <template v-if="correctedErrors.length">
+        <span class="font-semibold">Corrected Errors:</span>
+        <div class="scroll-block max-h-full flex flex-col">
+          <template v-for="(error, index) in correctedErrors" :key="index">
+            <span>{{ index + 1 }} - {{ error }}</span>
+          </template>
+        </div>
+      </template>
+      <template v-if="recommendations.length">
+        <span class="font-semibold">Recommendations:</span>
+        <div class="scroll-block max-h-full flex flex-col">
+          <template v-for="(error, index) in recommendations" :key="index">
+            <span>{{ index + 1 }} - {{ error }}</span>
+          </template>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -46,7 +56,9 @@ const score = computed(() => response.value ? `${response.value?.score * 100}%` 
 
 const htmlContent = computed(() => response.value?.corrected_html)
 
-const errors = computed(() => response.value?.errors)
+const recommendations = computed(() => response.value?.recommendations ?? [])
+
+const correctedErrors = computed(() => response.value?.corrected_errors ?? [])
 </script>
 
 <style scoped lang="scss">
